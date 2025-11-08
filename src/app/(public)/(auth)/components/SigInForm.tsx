@@ -46,7 +46,7 @@ export default function SigInForm() {
         <div>
           <div className="flex justify-between mb-1">
             <Label htmlFor="password">Password</Label>
-            <Link href="#" className="text-cyan-500 text-xs font-semibold">
+            <Link href="/request-password-reset" className="text-cyan-500 text-xs font-semibold">
               Forgot password?
             </Link>
           </div>

@@ -3,7 +3,7 @@ import 'server-only'
 import { JWTPayload, jwtVerify, SignJWT } from "jose"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
-import { auth } from '@/auth'
+import { auth, signOut } from '@/auth'
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET)
 
@@ -72,4 +72,5 @@ export async function deleteSession() {
     cookieStore.getAll().forEach(cookie => {
         cookieStore.delete(cookie.name)
     })
+    await signOut()
 }
