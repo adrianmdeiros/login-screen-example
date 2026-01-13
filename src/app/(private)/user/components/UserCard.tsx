@@ -1,38 +1,19 @@
-'use client'
-
 import Image from "next/image";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { LogOut, Pencil, User } from "lucide-react";
-import Loading from "../../../loading";
-import { useState } from "react";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { User } from "lucide-react";
+import { LogoutButton } from "./LogoutButton";
 
-type UserCardProps = {
-    user: {
-        name: string | null
-        email: string | null
-        image: string | null
-    }
+type User = {
+    name: string | null
+    email: string | null
+    image: string | null
 }
 
-export default function UserCard({ user }: UserCardProps) {
-    const { name, email, image } = user
-    const [isLoading, setIsLoading] = useState(false)
-    const router = useRouter()
+type UserCardProps = {
+    user: User
+}
 
-    async function handleLogout() {
-        setIsLoading(true)
-        const res = await fetch('/api/auth/logout', { method: 'POST' })
-        if (res.ok) {
-            toast.success('Logged out successfully.')
-            router.push('/')
-        } else {
-            toast.error('Loogout failed')
-        }
-        setIsLoading(false)
-    }
-
+export default function UserCard({ user: { name, email, image } }: UserCardProps) {
     return (
         <Card>
             <CardHeader className="flex justify-center items-center">
@@ -55,14 +36,7 @@ export default function UserCard({ user }: UserCardProps) {
                 <span>{email}</span>
             </CardContent>
             <CardFooter className="flex justify-center items-center">
-                {isLoading ?
-                    <Loading />
-                    :
-                    <LogOut
-                        onClick={handleLogout}
-                        className="cursor-pointer text-red-700 hover:text-red-600"
-                    />
-                }
+                <LogoutButton />
             </CardFooter>
         </Card>
     )
