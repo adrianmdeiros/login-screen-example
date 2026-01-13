@@ -1,7 +1,7 @@
 import { ChangePassword } from "./components/ChangePassword"
 
-export default function ResetPasswordPage({ searchParams }: { searchParams: { token?: string } }) {
-    const token = searchParams?.token ?? ''
+export default async function ResetPasswordPage({ searchParams }: { searchParams: Promise<{ token: string }> }) {
+    const token = (await searchParams).token
 
     if (!token) {
         return (
