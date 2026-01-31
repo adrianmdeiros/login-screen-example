@@ -17,14 +17,15 @@ export const saveUser = async (user: any) => {
         email: user.email,
         emailVerified: null,	
         password: user.password,
+        role: user.role,
         image: user.avatarUrl
-    }).returning({ id: users.id })
+    }).returning({ id: users.id, role: users.role })
 }
 
 export const getUserById = cache(async (id: string) => {
     await verifySession()
     return await db
-        .select({ name: users.name, email: users.email, image: users.image })
+        .select({ name: users.name, email: users.email, role:users.role, image: users.image })
         .from(users)
         .where(eq(users.id, id))
 })

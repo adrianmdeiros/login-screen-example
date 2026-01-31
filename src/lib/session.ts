@@ -26,9 +26,9 @@ export async function decrypt(token: string) {
     }
 }
 
-export async function createSession(userId: string) {
+export async function createSession(userId: string, role: string) {
     const expiresIn = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours in milliseconds
-    const token = await encrypt({ userId, expiresIn })
+    const token = await encrypt({ userId, expiresIn, role })
     const cookiesStore = await cookies()
 
     cookiesStore.set('token', token, {
@@ -73,4 +73,16 @@ export async function deleteSession() {
         cookieStore.delete(cookie.name)
     })
     await signOut()
+}
+
+export async function verifyRole(){
+    const cookieStore = await cookies()
+    const token = cookieStore.get('token')?.value
+    if(token){
+        const session = await decrypt(token)
+        if(session){
+            return { role: session.role as string}
+        }
+    }
+    return { role: 'comum' }
 }

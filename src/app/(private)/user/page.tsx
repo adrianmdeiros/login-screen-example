@@ -8,9 +8,9 @@ import { verifySession } from "@/lib/session";
 export default async function UserPage() {
   const session = await verifySession()
 
-  const [ user ] = await getUserById(session.userId)
+  const [user] = await getUserById(session.userId)
 
-  if(!user){
+  if (!user) {
     return (
       <div className="h-screen w-full flex flex-col justify-center items-center">
         User not found
@@ -26,6 +26,9 @@ export default async function UserPage() {
       <Suspense fallback={<Loading />}>
         <UserCard user={user} />
       </Suspense>
+        <Link href='/dashboard'>
+          Dashboard
+        </Link>
     </div>
   )
 }

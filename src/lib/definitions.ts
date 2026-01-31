@@ -17,7 +17,10 @@ export const SignUpFormSchema = z.object({
         .trim(),
     confirmPassword: z
         .string()
-        .min(1, 'Confirmation is required.')
+        .min(1, 'Confirmation is required.'),
+    role: z
+        .string()
+        .min(1, 'Role is required')
 }).refine(({ password, confirmPassword }) => password === confirmPassword, {
     message: 'Passwords do not match.',
     path: ['confirmPassword'],

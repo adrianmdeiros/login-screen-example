@@ -36,6 +36,20 @@
       "when": 1762468528228,
       "tag": "0004_real_the_fallen",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1769871526226,
+      "tag": "0005_nebulous_squirrel_girl",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1769871664777,
+      "tag": "0006_red_sentinel",
+      "breakpoints": true
     }
   ]
 }

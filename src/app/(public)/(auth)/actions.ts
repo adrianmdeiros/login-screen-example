@@ -8,7 +8,6 @@ import { getUserByEmail, saveUser } from '@/data/user'
 import { randomBytes, createHash } from 'crypto'
 import { db, passwordResets, users } from '@/db/schema'
 import { eq, gt, and } from 'drizzle-orm'
-import { log } from 'console'
 
 export async function signUp(_: unknown, formData: FormData) {
     const validatedFields = SignUpFormSchema.safeParse(Object.fromEntries(formData))
@@ -19,7 +18,8 @@ export async function signUp(_: unknown, formData: FormData) {
             fieldData: {
                 email: formData.get('email') as string,
                 password: formData.get('password') as string,
-                confirmPassword: formData.get('confirmPassword') as string
+                confirmPassword: formData.get('confirmPassword') as string,
+                role: formData.get('role') as string
             }
         }
     }
@@ -40,11 +40,12 @@ export async function signUp(_: unknown, formData: FormData) {
 
     const newUser = await saveUser({
         email: validatedFields.data.email,
-        password: hashedPassword,
+        password: hashedPassword, 
+        role: validatedFields.data.role,
         avatarUrl: null
     })
 
-    await createSession(newUser[0].id)
+    await createSession(newUser[0].id, newUser[0].role)
 
 }
 
@@ -96,7 +97,7 @@ export async function signIn(_: unknown, formData: FormData) {
         }
     }
 
-    await createSession(user[0].id)
+    await createSession(user[0].id, user[0].role)
 
 }
 

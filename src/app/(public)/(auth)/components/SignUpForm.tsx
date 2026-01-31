@@ -23,6 +23,7 @@ export default function SignUpForm() {
     'email': state?.errors?.email || state?.message === 'User already exists.' && 'border-yellow-500',
     'password': state?.errors?.password && 'border-yellow-500',
     'confirmPassword': state?.errors?.confirmPassword && 'border-yellow-500',
+    'role': state?.errors?.role && 'border-yellow-500'
   }
 
   return (
@@ -83,6 +84,23 @@ export default function SignUpForm() {
         {state?.errors?.confirmPassword &&
           <p className="text-yellow-500 font-semibold text-sm">
             {state.errors.confirmPassword[0]}
+          </p>
+        }
+      </div>
+
+      <div>
+        <Label htmlFor="role">Role</Label>
+        <Input
+          type="text"
+          id="role"
+          name="role"
+          placeholder="Digite a role"
+          defaultValue={state?.fieldData?.role}
+          className={`text-sm placeholder:text-neutral-500 ${fieldErrorBorderColor['role']}`}
+        />
+        {state?.errors?.role &&
+          <p className="text-yellow-500 font-semibold text-sm">
+            {state.errors.role[0]}
           </p>
         }
       </div>
